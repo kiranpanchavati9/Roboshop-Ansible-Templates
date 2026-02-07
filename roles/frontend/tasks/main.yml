@@ -4,12 +4,12 @@
     state: present
 
 - name: Remove the default HTML Directory
-  ansible.builtin.template:
+  ansible.builtin.file:
     path: /usr/share/nginx/html/
     state: absent
 
 - name: Create a directory
-  ansible.builtin.template:
+  ansible.builtin.file:
     path: /usr/share/nginx/html/
     state: directory
 
@@ -25,7 +25,7 @@
     remote_src: yes
 
 - name: Copy nginx file
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: /root/Ansible/Ansible-RoboShop-V1/nginx.conf
     dest: /etc/nginx/nginx.conf
 

@@ -1,5 +1,5 @@
 - name: Copy RabbitMQ repository file
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: /root/Ansible/Ansible-RoboShop-V1/rabbitmq.repo
     dest: /etc/yum.repos.d/rabbitmq.repo
     mode: '0644'

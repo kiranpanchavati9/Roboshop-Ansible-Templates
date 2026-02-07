@@ -10,7 +10,7 @@
 # 3. Copy Cart systemd service file
 ####################################################################
 - name: Copy {{component}} systemd service file
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: "{{component}}.service"
     dest: /etc/systemd/system/{{component}}.service
 
@@ -18,7 +18,7 @@
 # 4. Create /app directory
 ####################################################################
 - name: Create /app directory
-  ansible.builtin.template:
+  ansible.builtin.file:
     path: /app
     state: directory
     owner: roboshop

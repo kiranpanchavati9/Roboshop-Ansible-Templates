@@ -1,5 +1,5 @@
 - name: Copy MongoDB repo file
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: mongo.repo
     dest: /etc/yum.repos.d/mongo.repo
     mode: '0644'
