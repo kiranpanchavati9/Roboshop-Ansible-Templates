@@ -31,7 +31,7 @@
 
 - name: Wait for MySQL to be reachable
   ansible.builtin.wait_for:
-    host: mysql-dev.kiranpanchavati.online
+    host: mysql-{{ env }}.kiranpanchavati.online
     port: 3306
     timeout: 60
 

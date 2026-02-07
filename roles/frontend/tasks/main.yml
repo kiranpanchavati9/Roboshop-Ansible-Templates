@@ -4,12 +4,12 @@
     state: present
 
 - name: Remove the default HTML Directory
-  ansible.builtin.file:
+  ansible.builtin.template:
     path: /usr/share/nginx/html/
     state: absent
 
 - name: Create a directory
-  ansible.builtin.file:
+  ansible.builtin.template:
     path: /usr/share/nginx/html/
     state: directory
 

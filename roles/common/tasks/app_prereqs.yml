@@ -18,7 +18,7 @@
 # 4. Create /app directory
 ####################################################################
 - name: Create /app directory
-  ansible.builtin.file:
+  ansible.builtin.template:
     path: /app
     state: directory
     owner: roboshop

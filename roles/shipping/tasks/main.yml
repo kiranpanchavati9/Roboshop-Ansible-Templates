@@ -9,7 +9,7 @@
 
 - name: Load DB schema (run as roboshop)
   ansible.builtin.shell: |
-    mysql -h mysql-dev.kiranpanchavati.online -uroboshop -pRoboShop@1 < /app/db/schema.sql
+    mysql -h mysql-{{ env }}.kiranpanchavati.online -uroboshop -pRoboShop@1 < /app/db/schema.sql
   args:
     executable: /bin/bash
 
@@ -23,10 +23,10 @@
     mysql -uroot -pRoboShop@1 <<< "{{ app_user_sql.content | b64decode }}"
   args:
     executable: /bin/bash
-  delegate_to: mysql-dev.kiranpanchavati.online
+  delegate_to: mysql-{{ env }}.kiranpanchavati.online
 
 - name: Load master data (run as roboshop)
   ansible.builtin.shell: |
-    mysql -h mysql-dev.kiranpanchavati.online -uroboshop -pRoboShop@1 < /app/db/master-data.sql
+    mysql -h mysql-{{ env }}.kiranpanchavati.online -uroboshop -pRoboShop@1 < /app/db/master-data.sql
   args:
     executable: /bin/bash

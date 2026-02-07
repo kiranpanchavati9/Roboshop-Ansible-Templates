@@ -19,7 +19,7 @@
 # ---------------- MongoDB data initialization ----------------
 - name: Check if catalogue data already exists
   ansible.builtin.command: >
-    mongosh --host mongod-dev.kiranpanchavati.online 
+    mongosh --host mongod-{{ env }}.kiranpanchavati.online 
     --quiet --eval "db.getSiblingDB('catalogue').products.countDocuments()"
   register: catalogue_count
   changed_when: false
@@ -27,7 +27,7 @@
 
 - name: Load catalogue master data
   ansible.builtin.command: >
-    mongosh --host mongod-dev.kiranpanchavati.online 
+    mongosh --host mongod-{{ env }}.kiranpanchavati.online 
     < /app/db/master-data.js
   when: catalogue_count.stdout is defined and catalogue_count.stdout | int == 0
 
