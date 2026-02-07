@@ -1,0 +1,39 @@
+- name: Install required packages
+  ansible.builtin.dnf:
+    name:
+      - maven
+      - unzip
+      - mysql
+    state: present
+
+- name: App Pre-requisites - Load
+  ansible.builtin.import_tasks: app_prereqs.yml
+
+- name: Extract shipping artifact
+  ansible.builtin.unarchive:
+    src: /tmp/shipping.zip
+    dest: /app
+    remote_src: yes
+    owner: roboshop
+    group: roboshop
+
+- name: Build shipping application using Maven
+  ansible.builtin.command: mvn clean package
+  args:
+    chdir: /app
+  become_user: roboshop
+
+- name: Rename shipping jar
+  ansible.builtin.command: mv target/{{component}}-1.0.jar {{component}}.jar
+  args:
+    chdir: /app
+  become_user: roboshop
+
+- name: Wait for MySQL to be reachable
+  ansible.builtin.wait_for:
+    host: mysql-dev.kiranpanchavati.online
+    port: 3306
+    timeout: 60
+
+- name: Load the Systemd File
+  ansible.builtin.import_tasks: systemd.yml
