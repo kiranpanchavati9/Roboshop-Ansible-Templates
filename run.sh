@@ -15,4 +15,4 @@ if [ ! -f "$PLAYBOOK" ]; then
 fi
 
 echo "🚀 Running playbook: $PLAYBOOK"
-ansible-playbook -i inventory "$PLAYBOOK" --ask-pass
+ansible-playbook -i inventory "$PLAYBOOK" --ask-pass -e env=dev
