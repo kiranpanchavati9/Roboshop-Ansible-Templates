@@ -1,0 +1,15 @@
+####################################################################
+# 7. Reload systemd
+####################################################################
+- name: Reload systemd daemon
+  ansible.builtin.systemd:
+    daemon_reload: yes
+
+####################################################################
+# 8. Enable and restart {{component}}  service
+####################################################################
+- name: Enable and restart {{component}}  service
+  ansible.builtin.systemd:
+    name: "{{component}}"
+    state: restarted
+    enabled: yes

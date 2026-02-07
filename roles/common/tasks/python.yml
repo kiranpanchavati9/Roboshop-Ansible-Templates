@@ -1,0 +1,28 @@
+- name: Install required packages
+  ansible.builtin.dnf:
+    name:
+      - python3
+      - gcc
+      - python3-devel
+      - unzip
+    state: present
+
+- name: App Pre-requisites - Load
+  ansible.builtin.import_tasks: app_prereqs.yml
+
+- name: Extract payment artifact
+  ansible.builtin.unarchive:
+    src: /tmp/payment.zip
+    dest: /app
+    remote_src: yes
+    owner: roboshop
+    group: roboshop
+
+- name: Install Python dependencies
+  ansible.builtin.pip:
+    requirements: /app/requirements.txt
+    executable: pip3
+
+- name: Load the Systemd File
+  ansible.builtin.import_tasks: systemd.yml
+
